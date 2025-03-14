@@ -1,25 +1,12 @@
 import { RequestHandler } from "express";
 import sendResponse from "../../utils/sendResponse";
 import { tryCatchAsync } from "../../utils/tryCatchAsync";
-import { UserServices } from "./auth.service";
-
-
-
-const createUser: RequestHandler = tryCatchAsync(async (req, res, next) => {
-    const result = await UserServices.createUserIntoDB(req.body);
-
-    sendResponse(res, { 
-        success: true,
-        statusCode: 201,
-        message: "User registered successfully.",
-        data: result
-    });
-});
+import { AuthServices } from "./auth.service";
 
 
 const logInUser: RequestHandler = tryCatchAsync(async (req, res, next) => {
 
-    const result = await UserServices.logInUserWithCreds(req.body);
+    const result = await AuthServices.logInUserWithCreds(req.body);
 
     sendResponse(res, { 
         success: true,
@@ -30,8 +17,6 @@ const logInUser: RequestHandler = tryCatchAsync(async (req, res, next) => {
 });
 
 
-
-export const UserController = {
-    createUser,
+export const AuthController = {
     logInUser
 }
