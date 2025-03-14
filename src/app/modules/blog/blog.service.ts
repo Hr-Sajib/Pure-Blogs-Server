@@ -10,28 +10,26 @@ const createBlogIntoDB = async(blogData: TBlog)=>{
         throw new Error("Author does not exist.");
     }
 
-
-
     const result = await BlogModel.create(blogData);
     return  result;
 } 
+
+
+const updateBlogIntoDB = async(blogId:string, updatedBlogData: Partial<TBlog>)=>{
+    return BlogModel.findByIdAndUpdate(
+        blogId,
+        { $set: updatedBlogData },
+        { new: true}
+    )
+}
 
 
 
 
 export const BlogService = {
     createBlogIntoDB,
-   
+    updateBlogIntoDB,
 
 }
 
-
-// const updateBlogIntoDB = async(blogId:string, updatedBlogData: Partial<TBlog>)=>{
-//     return BlogModel.findByIdAndUpdate(
-//         blogId,
-//         { $set: updatedBlogData },
-//         { new: true}
-//     )
-// }
-
- // updateBlogIntoDB,
+ 

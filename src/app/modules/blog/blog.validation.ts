@@ -12,3 +12,7 @@ export const blogValidationSchema = z.object({
         author: z.string(),
     })
 });
+
+export const updateBlogValidationSchema = z.object({
+    body: blogValidationSchema.shape.body.partial(),
+});
