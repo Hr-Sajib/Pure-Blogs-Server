@@ -1,17 +1,5 @@
 import { Error } from "mongoose";
 
-export type TErrorSource = Array<{
-    path: string | number;
-    message: string;
-  }>;
-  
-export type TGenericErrorResponse = {
-  statusCode : number,
-  message : string,
-  errorSources : TErrorSource
-
-}
-
 export class AppError extends Error{
     public statusCode: number;
 
@@ -26,3 +14,4 @@ export class AppError extends Error{
         }
     }
 }
+
