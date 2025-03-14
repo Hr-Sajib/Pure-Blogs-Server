@@ -16,7 +16,16 @@ router.patch(
     "/:blogId",
     validateRequest(updateBlogValidationSchema),
     BlogController.updateBlog
+);
 
+router.get(
+    "/",
+    BlogController.getAllBlogs
+)
+
+router.delete(
+    "/:blogId",
+    BlogController.deleteBlog
 )
 
 

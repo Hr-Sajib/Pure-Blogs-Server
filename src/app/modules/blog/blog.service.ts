@@ -15,6 +15,11 @@ const createBlogIntoDB = async(blogData: TBlog)=>{
     return  result;
 } 
 
+const getAllBlogsFromDB =async () => {
+    const result = await BlogModel.find().populate('author');
+    return result;
+}
+
 
 const updateBlogIntoDB = async(blogId:string, updatedBlogData: Partial<TBlog>)=>{
     return BlogModel.findByIdAndUpdate(
@@ -24,12 +29,26 @@ const updateBlogIntoDB = async(blogId:string, updatedBlogData: Partial<TBlog>)=>
     )
 }
 
+const deleteBlogFromDB =async (blogId:string) => {
+
+    const foundBlog = await BlogModel.findById(blogId)
+
+    if(!foundBlog){
+        throw new AppError(400, "Blog not found!")
+    }
+
+    const result = await BlogModel.findOneAndDelete({_id: blogId});
+    return result;
+}
+
 
 
 
 export const BlogService = {
     createBlogIntoDB,
     updateBlogIntoDB,
+    getAllBlogsFromDB,
+    deleteBlogFromDB
 
 }
 
