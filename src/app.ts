@@ -15,6 +15,10 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to Pure Blogs server..");
 });
 
+app.get("/api", (req: Request, res: Response) => {
+  res.send("Entered API route. now add proper routes and request..\nLike : https://pure-blogs-server.vercel.app/api/....");
+});
+
 app.use(globalErrorHandler);
 
 
