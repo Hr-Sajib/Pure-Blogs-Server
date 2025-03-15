@@ -79,6 +79,26 @@ const updateBlog: RequestHandler = tryCatchAsync(async (req, res, next) => {
 const deleteBlog = tryCatchAsync( async (req, res, next) => { 
 
     const blogId = req.params.blogId;
+
+    const targetBlog = await BlogModel.findById(blogId).populate<{
+        author: TUser;
+    }>({
+        path: 'author',
+        select: 'email' 
+    });
+
+    if(!targetBlog){
+        throw new AppError(400,"Blog doesn\'t exist!"); 
+    }
+
+    const authorizedAuthorEmail = targetBlog?.author?.email;
+    const requestingUserEmail = req.user?.email;
+
+    if(authorizedAuthorEmail !== requestingUserEmail){
+        throw new AppError(HttpStatus.UNAUTHORIZED ,"You are not the author of the blog. Can not delete!"); 
+    }
+
+
     const result = await BlogService.deleteBlogFromDB(blogId);
     
     sendResponse(res, {
