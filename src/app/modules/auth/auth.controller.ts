@@ -11,7 +11,7 @@ const logInUser: RequestHandler = tryCatchAsync(async (req, res, next) => {
     sendResponse(res, { 
         success: true,
         statusCode: 201,
-        message: "User logged in successfully.",
+        message: "Logged in successfully.",
         data: result
     });
 });
@@ -20,3 +20,4 @@ const logInUser: RequestHandler = tryCatchAsync(async (req, res, next) => {
 export const AuthController = {
     logInUser
 }
+

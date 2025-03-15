@@ -1,4 +1,5 @@
 import { Types } from "mongoose";
+import { TUser } from "../user/user.interface";
 
 export type TBlog = {
     title: string,

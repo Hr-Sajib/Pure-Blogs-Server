@@ -3,8 +3,10 @@ import mongoose from "mongoose";
 import { AppError } from "../../errors/error";
 import sendResponse from "../../utils/sendResponse";
 import { tryCatchAsync } from "../../utils/tryCatchAsync";
+import { BlogModel } from "./blog.model";
 import { BlogService } from "./blog.service";
-
+import  HttpStatus from "http-status";
+import { TUser } from "../user/user.interface";
 
 const createBlog: RequestHandler = tryCatchAsync(async (req, res, next) => {
     const result = await BlogService.createBlogIntoDB(req.body);
@@ -39,6 +41,25 @@ const updateBlog: RequestHandler = tryCatchAsync(async (req, res, next) => {
     if (!mongoose.Types.ObjectId.isValid(blogId)) {
         throw new AppError(400,"Blog ID is not valid!"); 
     };
+
+
+    const targetBlog = await BlogModel.findById(blogId).populate<{
+        author: TUser;
+    }>({
+        path: 'author',
+        select: 'email' 
+    });
+
+    if(!targetBlog){
+        throw new AppError(400,"Blog doesn\'t exist!"); 
+    }
+
+    const authorizedAuthorEmail = targetBlog?.author?.email;
+    const requestingUserEmail = req.user?.email;
+
+    if(authorizedAuthorEmail !== requestingUserEmail){
+        throw new AppError(HttpStatus.UNAUTHORIZED ,"You are not the author of the blog. Can not update!"); 
+    }
 
     const updatedData = req.body;
     const updatedBlog = await BlogService.updateBlogIntoDB(blogId, updatedData);

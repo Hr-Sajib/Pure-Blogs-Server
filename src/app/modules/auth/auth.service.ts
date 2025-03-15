@@ -9,7 +9,6 @@ const logInUserWithCreds = async (loginCreds: TLogInUser) => {
     console.log('login req from :', loginCreds)
 
     const isUserExists = await UserModel.isUserExists(loginCreds?.email);
-    // console.log('blocked:',isUserExists?.isBlocked)
 
     const passwordMatched = await UserModel.isPasswordMatched(loginCreds?.email, loginCreds?.password );
     console.log("pass:",passwordMatched)
@@ -38,14 +37,11 @@ const logInUserWithCreds = async (loginCreds: TLogInUser) => {
       );
 
 
-
-
       return(
-        accessToken 
+        {
+          token: accessToken
+        }
       )
-
-    
-
 }
 
 
