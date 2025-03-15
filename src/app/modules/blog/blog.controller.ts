@@ -9,6 +9,8 @@ import { BlogService } from "./blog.service";
 const createBlog: RequestHandler = tryCatchAsync(async (req, res, next) => {
     const result = await BlogService.createBlogIntoDB(req.body);
 
+    console.log(req?.user)
+
     sendResponse(res, { 
         success: true,
         statusCode: 201,
