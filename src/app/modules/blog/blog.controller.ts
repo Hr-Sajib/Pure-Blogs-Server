@@ -8,10 +8,8 @@ import { BlogService } from "./blog.service";
 import  HttpStatus from "http-status";
 import { TUser } from "../user/user.interface";
 
-const createBlog: RequestHandler = tryCatchAsync(async (req, res, next) => {
+const createBlog: RequestHandler = tryCatchAsync(async (req, res) => {
     const result = await BlogService.createBlogIntoDB(req.body);
-
-    console.log(req?.user)
 
     sendResponse(res, { 
         success: true,
@@ -21,7 +19,7 @@ const createBlog: RequestHandler = tryCatchAsync(async (req, res, next) => {
     });
 });
 
-const getAllBlogs = tryCatchAsync( async(req, res, next)=>{ 
+const getAllBlogs = tryCatchAsync( async(req, res)=>{ 
         
     const result = await BlogService.getAllBlogsFromDB(req.query);
     
@@ -35,7 +33,7 @@ const getAllBlogs = tryCatchAsync( async(req, res, next)=>{
 })
 
 
-const updateBlog: RequestHandler = tryCatchAsync(async (req, res, next) => {  
+const updateBlog: RequestHandler = tryCatchAsync(async (req, res) => {  
     const blogId = req.params.blogId;
 
     if (!mongoose.Types.ObjectId.isValid(blogId)) {
@@ -51,7 +49,7 @@ const updateBlog: RequestHandler = tryCatchAsync(async (req, res, next) => {
     });
 
     if(!targetBlog){
-        throw new AppError(400,"Blog doesn\'t exist!"); 
+        throw new AppError(400,"Blog doesn't exist!"); 
     }
 
     const authorizedAuthorEmail = targetBlog?.author?.email;
@@ -76,7 +74,7 @@ const updateBlog: RequestHandler = tryCatchAsync(async (req, res, next) => {
 });
 
 
-const deleteBlog = tryCatchAsync( async (req, res, next) => { 
+const deleteBlog = tryCatchAsync( async (req, res) => { 
 
     const blogId = req.params.blogId;
 
@@ -88,7 +86,7 @@ const deleteBlog = tryCatchAsync( async (req, res, next) => {
     });
 
     if(!targetBlog){
-        throw new AppError(400,"Blog doesn\'t exist!"); 
+        throw new AppError(400,"Blog doesn't exist!"); 
     }
 
     const authorizedAuthorEmail = targetBlog?.author?.email;

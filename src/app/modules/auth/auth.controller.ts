@@ -4,7 +4,7 @@ import { tryCatchAsync } from "../../utils/tryCatchAsync";
 import { AuthServices } from "./auth.service";
 
 
-const logInUser: RequestHandler = tryCatchAsync(async (req, res, next) => {
+const logInUser: RequestHandler = tryCatchAsync(async (req, res) => {
 
     const result = await AuthServices.logInUserWithCreds(req.body);
 

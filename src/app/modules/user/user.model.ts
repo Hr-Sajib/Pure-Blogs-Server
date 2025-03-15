@@ -1,4 +1,4 @@
-import { Model, model, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import { TUser, TUserModel } from "./user.interface"; 
 import { AppError } from "../../errors/error";

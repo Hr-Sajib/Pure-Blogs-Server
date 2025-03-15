@@ -1,5 +1,5 @@
 
-import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
+import { Request, Response, ErrorRequestHandler } from "express";
 import { ZodError } from "zod";
 import { AppError } from "../errors/error";
 import { TErrorSource } from "../errors/errorTypes";
@@ -10,7 +10,7 @@ import { handleZodError } from "../errors/handleZodError";
 
 
 
-export const globalErrorHandler : ErrorRequestHandler = (err: any, req: Request, res: Response, next: NextFunction) => { 
+export const globalErrorHandler : ErrorRequestHandler = (err: any, req: Request, res: Response) => { 
     
 
     // default values 

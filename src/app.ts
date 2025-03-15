@@ -12,7 +12,7 @@ app.use(cors());
 app.use("/api", router);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World..");
+  res.send("Welcome to Pure Blogs server..");
 });
 
 app.use(globalErrorHandler);

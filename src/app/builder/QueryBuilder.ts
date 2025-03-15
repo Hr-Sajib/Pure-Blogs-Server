@@ -40,19 +40,30 @@ class QueryBuilder<T> {
         return this;
     }
 
+    // sort() {
+    //     const sortBy = this.query?.sortBy as string || 'createdAt'; // default to createdAt
+    //     const sortOrder = this.query?.sortOrder as string || 'asc'; // default to ascending
+
+    //     const sortObj = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
+    //     this.modelQuery = this.modelQuery.sort(sortObj);
+
+    //     return this;
+    // }
+    
     sort() {
         const sortBy = this.query?.sortBy as string || 'createdAt'; // default to createdAt
-        const sortOrder = this.query?.sortOrder as string || 'asc'; // default to ascending
-
-        const sortObj = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
-        this.modelQuery = this.modelQuery.sort(sortObj);
-
+        const sortOrder = this.query?.sortOrder === 'asc' ? 1 : -1; // default to ascending
+    
+        const sortObj = { [sortBy]: sortOrder };
+        this.modelQuery = this.modelQuery.sort(sortObj as Record<string, 1 | -1>);
+    
         return this;
     }
+    
 
     paginate() {
         const page = Number(this.query?.page) || 1; 
-        const limit = Number(this.query?.limit) || 3;
+        const limit = Number(this.query?.limit) || 100;
         const skip = (page - 1) * limit; 
 
         this.modelQuery = this.modelQuery.skip(skip).limit(limit); 

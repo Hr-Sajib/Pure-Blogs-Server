@@ -6,12 +6,12 @@ import config from "../../config";
 
 
 const logInUserWithCreds = async (loginCreds: TLogInUser) => {
-    console.log('login req from :', loginCreds)
+    // console.log('login req from :', loginCreds)
 
     const isUserExists = await UserModel.isUserExists(loginCreds?.email);
 
     const passwordMatched = await UserModel.isPasswordMatched(loginCreds?.email, loginCreds?.password );
-    console.log("pass:",passwordMatched)
+    // console.log("pass:",passwordMatched)
 
 
     if (!isUserExists) {

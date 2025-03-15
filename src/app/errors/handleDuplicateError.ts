@@ -1,9 +1,7 @@
-import mongoose from "mongoose";
-import { TErrorSource, TGenericErrorResponse } from "./interface/errorTypes";
+import { ZodError } from "zod";
+import { TErrorSource, TGenericErrorResponse } from "./errorTypes";
 
-export const handleDuplicateError = (err: any): TGenericErrorResponse => {
-
-
+export const handleDuplicateError = (err : ZodError): TGenericErrorResponse => {
 
   let extractedValue : string = ''
   const errorMessage = err?.message;

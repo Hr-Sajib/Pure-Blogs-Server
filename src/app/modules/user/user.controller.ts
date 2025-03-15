@@ -5,7 +5,7 @@ import sendResponse from "../../utils/sendResponse";
 import { tryCatchAsync } from "../../utils/tryCatchAsync";
 import { UserServices } from "./user.service";
 
-const createUser: RequestHandler = tryCatchAsync(async (req, res, next) => {
+const createUser: RequestHandler = tryCatchAsync(async (req, res) => {
     const result = await UserServices.createUserIntoDB(req.body);
 
     if(!result){
@@ -21,7 +21,7 @@ const createUser: RequestHandler = tryCatchAsync(async (req, res, next) => {
 });
 
 
-const blockUser: RequestHandler = tryCatchAsync(async (req, res, next) => {  
+const blockUser: RequestHandler = tryCatchAsync(async (req, res) => {  
     const userId = req.params.userId;
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
